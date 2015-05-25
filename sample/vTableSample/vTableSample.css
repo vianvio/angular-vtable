@@ -1,0 +1,112 @@
+.fmTable-col-id {
+  width: calc(10% - 30px);
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+
+.fmTable-col-bname {
+  /*width: calc(40% - 10px);*/
+  
+  width: 40%;
+  -webkit-flex: 4;
+  -moz-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+}
+
+.fmTable-col-longitude {
+  /*width: calc(15% - 10px);*/
+  
+  width: 15%;
+  -webkit-flex: 1.5;
+  -moz-flex: 1.5;
+  -ms-flex: 1.5;
+  flex: 1.5;
+  text-align: right;
+}
+
+.fmTable-col-head-longitude {
+  text-align: center;
+}
+
+.fmTable-col-latitude {
+  /*width: calc(15% - 10px);*/
+  
+  width: 15%;
+  -webkit-flex: 1.5;
+  -moz-flex: 1.5;
+  -ms-flex: 1.5;
+  flex: 1.5;
+}
+
+.fmTable-col-range {
+  width: 20%;
+  -webkit-flex: 2;
+  -moz-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  text-align: right;
+}
+
+.fmTable-col-head-range {
+  text-align: center;
+}
+
+.fmTable-body-height {
+  min-height: 120px;
+}
+
+.fmTable-page-number {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.vTable-col {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+/*.nameTable-col-id {
+  width: calc(10% - 31px);
+  flex: 1;
+  text-align: center;
+}
+
+.nameTable-col-first_name {
+  width: 40%;
+  flex: 4;
+}
+
+.nameTable-col-last_name {
+  width: 15%;
+  flex: 1.5;
+  text-align: right;
+}
+
+.nameTable-col-email {
+  width: 15%;
+  flex: 1.5;
+}
+
+.nameTable-col-country {
+  width: 10%;
+  flex: 1;
+  background-color: red;
+  text-align: right;
+}
+
+.nameTable-col-ip_address {
+  width: 10%;
+  flex: 1;
+}*/
+
+.nameTable-page-number {
+  text-align: right;
+  margin-top: 5px;
+}
+
+.nameTable-body-height {
+  height: 170px;
+}

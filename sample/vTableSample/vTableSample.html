@@ -1,0 +1,22 @@
+<div ng-controller='vTableSampleCtrl'>
+  <div style='position: relative; width: 100%;'>
+    <div class="panel panel-info">
+      <div class="panel-heading">Facility Maintanence
+        <button type="button" class="btn btn-danger btn-right">Delete</button>
+        <button type="button" class="btn btn-success btn-right">Update</button>
+        <a class="btn btn-success btn-right" href="#">New</a>
+      </div>
+      <vtable tconfig='facilityTable'></vtable>
+    </div>
+  </div>
+  <div>fixed head and scrollable table</div>
+  <hr/>
+  <div style='position: relative; width: 100%;'>
+    <vtable tconfig='nameTable'></vtable>
+  </div>
+  <div>Table based version</div>
+  <hr/>
+  <div style='position: relative; width: 100%;'>
+    <vtable tconfig='meetingTable'></vtable>
+  </div>
+</div>
