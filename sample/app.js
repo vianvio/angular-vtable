@@ -10,7 +10,7 @@ config(['$routeProvider', function($routeProvider) {
     .when('/vTableSample', {
       templateUrl: 'sample/vTableSample/vTableSample.html',
       controller: 'vTableSampleCtrl'
+    }).otherwise({
+      redirectTo: '/vTableSample'
     });
-
-  $routeProvider.otherwise('/vTableSample');
 }]);
