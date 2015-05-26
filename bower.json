@@ -1,0 +1,28 @@
+{
+  "name": "vTable",
+  "version": "0.0.1",
+  "homepage": "https://github.com/vianvio/angular-vtable",
+  "authors": [
+    "vianvio <gloomy_wind@hotmail.com>"
+  ],
+  "description": "An angular directive to build a table.",
+  "main": ["src/vTable.js", "src/vTable.css"],
+  "keywords": [
+    "vTable",
+    "angular",
+    "ngTable",
+    "table"
+  ],
+  "dependencies": {
+    "angular": "latest",
+    "jquery": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
