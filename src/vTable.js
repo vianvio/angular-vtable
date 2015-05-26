@@ -2,7 +2,55 @@
 
 /* Directives */
 
-angular.module('vTable', []).directive('vtable', ['$window', function($window) {
+angular.module('vTable', [])
+  .run(['$templateCache', function($templateCache) {
+    $templateCache.put('src/vTable.html',
+      '<div ng-if=\'!tconfig.divBase\' class=\"holder-vTable {{tconfig.tableId}}-body-height\">' +
+      '<table id=\"tableContactList\" class=\"table table-striped table-bordered table-hover no-margin\">' +
+      '<thead>' +
+      '<tr>' +
+      '<td class=\'{{tconfig.tableId}}-col-checkbox text-center\' ng-if=\'tconfig.tableWithCheckbox\'>' +
+      '<input type=\'checkbox\' ng-checked=\'chkAllChecked\' ng-click=\'allChecked()\' />' +
+      '</td>' +
+      '<td class=\'text-center vTable-col vTable-head-cursor {{tconfig.tableId}}-col-{{tconfig.tableColNames[$index]}} {{tconfig.tableId}}-col-head-{{tconfig.tableColNames[$index]}}\' ng-repeat=\'tableTitle in tconfig.tableTitles\' ng-click=\'setSortCol(tconfig.tableColNames[$index], $event)\'>{{tableTitle}}</td>' +
+      '</tr>' +
+      '</thead>' +
+      '<tbody>' +
+      '<tr ng-repeat=\'content in realData | orderBy:sortCol:sortReverse\'>' +
+      '<td class=\'text-center\' ng-if=\'tconfig.tableWithCheckbox\'>' +
+      '<input type=\'checkbox\' ng-checked=\'content.checked\' ng-click=\'rowChecked(content[tconfig.dataIdColName])\' />' +
+      '</td>' +
+      '<td ng-repeat=\'colName in tconfig.tableColNames\'>{{content[colName]}}</td>' +
+      '</tr>' +
+      '</tbody>' +
+      '</table>' +
+      '</div>' +
+      '<div ng-if=\'tconfig.divBase\' class=\'vTable-thead {{tconfig.tableId}}-thead col-md-12 no-padding position-relative\'>' +
+      '<div class=\'vTable-col-checkbox {{tconfig.tableId}}-col-head-checkbox\' ng-if=\'tconfig.tableWithCheckbox\'>' +
+      '<input type=\'checkbox\' ng-checked=\'chkAllChecked\' ng-click=\'allChecked()\' />' +
+      '</div>' +
+      '<div resizable resize-col=\'{{$index}}\' ng-repeat=\'tableTitle in tconfig.tableTitles\' class=\'vTable-col position-relative vTable-resize vTable-head-cursor {{tconfig.tableId}}-col-{{tconfig.tableColNames[$index]}} {{tconfig.tableId}}-col-head-{{tconfig.tableColNames[$index]}} {{$last ? \"vTable-col-last\" : \"\"}} {{tconfig.colResizable ? \"\" : \"vTable-unresizable\"}}\' ng-mousedown=\'getMouseDownPosition($event)\' ng-click=\'setSortCol(tconfig.tableColNames[$index], $event)\'>{{tableTitle}}</div>' +
+      '</div>' +
+      '<div ng-if=\'tconfig.divBase\' class=\'vTable-tbody col-md-12 no-padding {{tconfig.tableId}}-body-height position-relative\'>' +
+      '<div class=\'vTable-tr col-md-12 no-padding position-relative\' ng-repeat=\'content in realData | orderBy:sortCol:sortReverse\'>' +
+      '<div class=\'text-center vTable-col-checkbox {{tconfig.tableId}}-col-checkbox\' ng-if=\'tconfig.tableWithCheckbox\' ng-class=\'getColWidth(\"checkbox\")\'>' +
+      '<input type=\'checkbox\' ng-checked=\'content.checked\' ng-click=\'rowChecked(content[tconfig.dataIdColName])\' />' +
+      '</div>' +
+      '<div resizable resize-col=\'{{$index}}\' ng-repeat=\'colName in tconfig.tableColNames\' class=\'vTable-col position-relative vTable-resize {{tconfig.tableId}}-col-{{colName}} {{$last ? \"vTable-col-last\" : \"\"}} {{tconfig.colResizable ? \"\" : \"vTable-unresizable\"}}\' ng-style=\'getColWidth(colName, $last)\'>{{content[colName]}}</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class=\'pull-left col-md-12 no-padding {{tconfig.tableId}}-page-number\' ng-if=\'tconfig.needPageNumber\'>' +
+      '<nav>' +
+      '<ul class=\'pagination no-margin\'>' +
+      '<li><a href=\'\' ng-click=\'turnPage(0)\'>&laquo;</a></li>' +
+      '<li ng-repeat=\'index in arrPageNum\' ng-class=\'index === currentPageNum ? \"active\" : \"\"\'><a href=\'\' ng-click=\'turnPage(index)\'>{{index}}</a></li>' +
+      '<li><a href=\'\' ng-click=\'turnPage(-1)\'>&raquo;</a></li>' +
+      '</ul>' +
+      '</nav>' +
+      '</div>' +
+      '<div style=\'clear:both;\'></div>');
+  }])
+  .directive('vtable', ['$window', function($window) {
     return {
       restrict: 'E',
       scope: {
