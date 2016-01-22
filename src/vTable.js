@@ -184,7 +184,12 @@ angular.module('vTable', [])
             scope.tconfig.numPerPage = scope.tconfig.numPerPage === 0 ? 1 : scope.tconfig.numPerPage;
             maxPageNumber = Math.ceil(rawData.rowCount / scope.tconfig.numPerPage);
             scope.maxPageNumber = maxPageNumber;
-            scope.realData = rawData.data;
+            // may have some cases that $promise don't return with a property data
+            if (rawData.data) {
+              scope.realData = rawData.data;
+            } else {
+              scope.realData = rawData;
+            }
 
             // set page number bar
             for (var i = 1; i <= maxPageNumber; i++) {
