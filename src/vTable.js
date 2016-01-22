@@ -103,7 +103,12 @@ angular.module('vTable', [])
                 var _sortReverse = !scope.sortReverse;
               }
               scope.tconfig.tableContents(scope.currentPageNum, scope.tconfig.numPerPage, sortCol, _sortReverse).then(function(rawData) {
-                scope.realData = rawData.data;
+                // may have some cases that $promise don't return with a property data
+                if (rawData.data) {
+                  scope.realData = rawData.data;
+                } else {
+                  scope.realData = rawData;
+                }
                 scope.chkAllChecked = false;
                 _localSort(sortCol);
               });
@@ -181,15 +186,15 @@ angular.module('vTable', [])
             // init
             scope.arrPageNum = [];
             scope.chkAllChecked = false;
-            scope.tconfig.numPerPage = scope.tconfig.numPerPage === 0 ? 1 : scope.tconfig.numPerPage;
-            maxPageNumber = Math.ceil(rawData.rowCount / scope.tconfig.numPerPage);
-            scope.maxPageNumber = maxPageNumber;
             // may have some cases that $promise don't return with a property data
             if (rawData.data) {
               scope.realData = rawData.data;
             } else {
               scope.realData = rawData;
             }
+            scope.tconfig.numPerPage = scope.tconfig.numPerPage === 0 ? 1 : scope.tconfig.numPerPage;
+            maxPageNumber = Math.ceil(scope.realdata.length / scope.tconfig.numPerPage);
+            scope.maxPageNumber = maxPageNumber;
 
             // set page number bar
             for (var i = 1; i <= maxPageNumber; i++) {
