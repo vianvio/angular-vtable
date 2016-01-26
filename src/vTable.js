@@ -54,11 +54,13 @@ angular.module('vTable', [])
     return {
       restrict: 'E',
       scope: {
-        tconfig: '='
+        tconfig: '=',
+        tableModel: '='
       },
       link: function(scope, element, attrs, ctrl) {
         var maxPageNumber = 1;
         var newPageNumber = 1;
+        if(!scope.tableModel) scope.tableModel = {};
 
         var _localSort = function(sortCol) {
           if (scope.sortCol === sortCol) {
@@ -171,7 +173,8 @@ angular.module('vTable', [])
         //create page number bar
         scope.currentPageNum = 1;
         //if the table owner want to refresh the number bar each time. he can call this inner method.
-        scope.refreshPageNum = function(pageNumber) {
+        scope.tableModel.refresh = scope.refreshPageNum = function(pageNumber) {
+          if(!pageNumber) pageNumber = scope.currentPageNum;
           scope.currentPageNum = pageNumber;
           scope.tconfig.tableContents(pageNumber, scope.tconfig.numPerPage, scope.sortCol, scope.sortReverse).then(function(rawData) {
             /*
@@ -185,7 +188,6 @@ angular.module('vTable', [])
             scope.tconfig.numPerPage = scope.tconfig.numPerPage === 0 ? 1 : scope.tconfig.numPerPage;
             maxPageNumber = Math.ceil(rawData.rowCount / scope.tconfig.numPerPage);
             scope.maxPageNumber = maxPageNumber;
-
             // set page number bar
             for (var i = 1; i <= maxPageNumber; i++) {
               scope.arrPageNum.push(i);
@@ -230,7 +232,7 @@ angular.module('vTable', [])
               // leave the last one flex as the original value
               // then it will get the exact px value after all ele before are stable
               // this can fix the firefox display issue
-              // because the with in firefox is all int!!!!! why not decimal!!!!!
+              // because in firefox it is all int!!!!! why not decimal!!!!!
               angular.element('.' + scope.tconfig.tableId + '-col-head-' + colName).css({
                 width: angular.element('.' + scope.tconfig.tableId + '-col-head-' + colName)[0].offsetWidth + 'px'
               });
